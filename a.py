@@ -101,34 +101,32 @@ def num_factors(t):
 #     print(quints)
 
 # sqrt(10**14)
-import operator
-mx = 10
+
+from operator import add, mul
+mx = 250
 pt = get_primes_below(math.ceil(math.sqrt(mx)))
 primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
 primes.add(2)
 # print(primes)
 mxpowers = dict()
 avail = []
+pre = time.time()
 for p in primes:
     k = math.floor(math.log(mx, p))
-    if p > 2:
-        print(k)
     mxpowers[p] = k
-    arr = list(zip(itertools.accumulate([p]*k, operator.mul), range(1,k+1)))
+    arr = list(zip(itertools.accumulate([p]*k, mul), range(1,k+1)))
     avail.extend(arr)
-    # avail.append(arr)
 print(mxpowers, avail)
 # print(2**46, 2**44*5)
 
 # combos of any length
-from operator import add, mul
 a = time.time()
+print(a-pre)
 all_combinations = (
     lambda ls: 
-        # functools.reduce(add,
-
-            # map(
-                # lambda combo: functools.reduce(lambda a,v: a+(2<<(v-1)), map(lambda c: c[1], combo)),
+        functools.reduce(lambda a,v: a+(2<<(v-1)),
+            map(
+                lambda combo: functools.reduce(add, map(lambda c: c[1], combo)),
                 itertools.chain.from_iterable(
                         itertools.filterfalse(
                             lambda combo: functools.reduce(mul, map(lambda c: c[0], combo)) > mx, 
@@ -136,8 +134,8 @@ all_combinations = (
                         )
                         for size in range(1, len(ls)+1)
                     )
-            # )
-        # )
+            )
+        )
 )
 
 '''
@@ -151,15 +149,14 @@ all_combinations = (
 '''
 
 
-b = time.time()
-print(b-a)
+
 combs = all_combinations(avail)
 print(combs)
-for q in list(combs):
-    print(q)
+# for q in list(combs):
+#     print(q)
 sm = 1
 # for c in combs:
 #     sm += 2<<(functools.reduce(-1)
-print(sm)
-c = time.time()
-print(c-b)
+print('final ', sm)
+b = time.time()
+print(b-a)
