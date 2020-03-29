@@ -2,6 +2,7 @@ from typing import List
 import itertools, math
 from functools import lru_cache, reduce
 from operator import add, mul
+from itertools import permutations, combinations
 import time
 
 from bitarray import bitarray
@@ -314,6 +315,54 @@ def sum_divisors(t):
 #     cnt += 1
 # print(cnt)
 
+'''
+#32
+'''
+# prods = set() # catch duplicates
+# # case1: 1d*4d = 4d
+# for i in range(1,10):
+#     dig = list(str(i) for i in range(1,10))
+#     dig.remove(str(i))
+#     a,b = '', ''
+#     for d in permutations(dig):
+#         a = int(''.join(d[:4]))
+#         b = int(''.join(d[4:]))
+#         if b<a:
+#             continue
+#         if i * a == b:
+#             print(i,a,b)
+#             prods.add(b)
 
+# # case2: 2d*3d=4d
+# maindig = list(str(i) for i in range(1,10))
+# for i in permutations(maindig, 2):
+#     dig = list(str(i) for i in range(1,10))
+#     dig.remove(i[0])
+#     dig.remove(i[1])
+#     a,b = '', ''
+#     n = int(''.join(i))
+#     for d in permutations(dig):
+#         a = int(''.join(d[:3]))
+#         b = int(''.join(d[3:]))
+#         # print(n,a,b)
+#         if b<a:
+#             continue
+#         if n * a == b:
+#             print(n,a,b)
+#             prods.add(b)
+# print(sum(prods))
 
-for i in range(1,9)
+'''
+#38
+'''
+# # ans must be >= 918273645
+# # cases
+# # 2d can't work b/c 2d+3d+3d != 9
+# # 3d can't work b/c 3d+4d+4d != 9
+# # 4d will work...
+# dig = list(str(i) for i in range(2, 8))
+# for d in permutations(dig):
+#     a = 9000 + int(''.join(d[:3]))
+#     b = 18000 + int(''.join(d[3:]))
+#     if b == 2*a:
+#         print(a,b)
