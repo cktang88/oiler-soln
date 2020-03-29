@@ -412,29 +412,32 @@ def isprime(n):
 
 from itertools import permutations, combinations
 
+rev_sorted_primes = sorted(primes, reverse=True)
+# print(rev_sorted_primes)
 combs = combinations(primes,2)
 pairs = set() # Invariant: (a,b) where b > a
 for arr in combs:
-    if arr[0] == arr[1]:
-        continue
+    if arr[0] > arr[1]:
+        arr = arr[::-1]
     a = [arr, arr[::-1]]
     bad = any(not isprime(int(''.join([str(c) for c in perm]))) for perm in a)
     if not bad:
         pairs.add(arr)
 
+
 print(len(pairs), ' pairs')
 a = time.time()
 triples = set() # Invariant: (a,b,c) where c > b > a
 for pair in pairs:
-    mn = min(pair)
-    for p in primes:
-        if p <= mn:
-            continue
+    mx = pair[1]
+    for p in rev_sorted_primes:
+        if p <= mx:
+            break
         candidates = [(q, p) for q in pair]
         bad = any((c not in pairs) for c in candidates)
         if not bad:
-            triples.add((pair[0], pair[1], p))
-    # print((pair[0], pair[1], p))
+            triples.add((*pair, p))
+            # print((pair[0], pair[1], p))
 
 print(len(triples), ' triples')
 b = time.time()
@@ -442,27 +445,27 @@ print(b-a)
 c = time.time()
 quads = set()
 for trip in triples:
-    mn = min(trip)
-    for p in primes:
-        if p <= mn:
-            continue
+    mx = trip[2]
+    for p in rev_sorted_primes:
+        if p <= mx:
+            break
         # TODO: instead of check in pairs, check in triples?
         candidates = [(q, p) for q in trip]
         bad = any((c not in pairs) for c in candidates)
         if not bad:
-            quads.add((trip[0], trip[1], trip[2], p))
-            print((trip[0], trip[1], trip[2], p))
+            quads.add((*trip, p))
+            # print((trip[0], trip[1], trip[2], p))
 d = time.time()
 print(d-c)
 print(len(quads), ' quads')
 
 # not worth optimizing, instantaneous
 for quad in quads:
-    mn = min(quad)
-    for p in primes:
-        if p <= mn:
-            continue
+    mx = quad[3]
+    for p in rev_sorted_primes:
+        if p <= mx:
+            break
         candidates = [(q, p) for q in quad]
         bad = any((c not in pairs) for c in candidates)
         if not bad:
-            print(p, quad, sum(quad)+p)
+            print((*quad, p), sum(quad)+p)
