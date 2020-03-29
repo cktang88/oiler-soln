@@ -4,15 +4,14 @@ import functools, itertools, math
 from bitarray import bitarray
 
 def get_primes_below(n: int) -> str:
-    mx = int(math.floor(n/2))
+    mx = n//2
     prime = bitarray(mx)  # only store odds, prime[i] = 2*i+1
     prime[:] = True
     prime[0] = False # init
     for i in range(3, mx*2+1, 2):
         if not prime[(i-1)//2]:
             continue
-        for j in range(3*i, 2*mx+1,2*i):
-            prime[(j-1)//2] = False
+        prime[(3*i-1)//2: mx: i] = False
     return prime.to01()
 
 
