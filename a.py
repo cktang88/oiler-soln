@@ -1,17 +1,20 @@
 from typing import List
 import functools, itertools, math
+import time
 
 from bitarray import bitarray
 
 def get_primes_below(n: int) -> str:
-    mx = n//2
+    mx = n>>1
     prime = bitarray(mx)  # only store odds, prime[i] = 2*i+1
     prime[:] = True
     prime[0] = False # init
+    c = 0
     for i in range(3, mx*2+1, 2):
-        if not prime[(i-1)//2]:
+        c+=1
+        if not prime[c]:
             continue
-        prime[(3*i-1)//2: mx: i] = False
+        prime[3*c+1: mx: i] = False
     return prime.to01()
 
 
@@ -389,10 +392,14 @@ def num_factors(t):
 #     print(r)
 
 k =10000
+a = time.time()
 bigpt = get_primes_below(k*k)
-bigprimes = set(2*i+1 for (i,e) in enumerate(bigpt) if e == '1')
+b = time.time()
+bigprimes = set((i<<1) +1 for (i,e) in enumerate(bigpt) if e == '1')
+c = time.time()
+print(b-a, c-b)
 pt = get_primes_below(k)
-primes = list(2*i+1 for (i,e) in enumerate(pt) if e == '1')
+primes = list((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
 print(len(bigprimes))
 print(len(primes))
 def isprime(n):
