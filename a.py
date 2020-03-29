@@ -1,5 +1,7 @@
 from typing import List
-import functools, itertools, math
+import itertools, math
+from functools import lru_cache, reduce
+from operator import add, mul
 import time
 
 from bitarray import bitarray
@@ -31,6 +33,26 @@ def num_factors(t):
     if t > 1:
         print(orig, 'bro')
     return numfactors
+
+@lru_cache(maxsize=10000)
+def sum_divisors(t):
+    orig = t
+    sm = 1
+    for p in primes:
+        q = 0
+        cnt = 0
+        if p > t:
+            break
+        while t%p == 0:
+            t//=p
+            cnt += 1
+        if cnt:
+            sm *= sum(math.pow(p, i) for i in range(cnt+1))
+        if t == 1:
+            break
+    if t > 1:
+        print(orig, 'bro')
+    return int(sm - orig)
 
 '''
 #60
@@ -100,63 +122,198 @@ def num_factors(t):
 #     quints = append_group(quads)
 #     print(quints)
 
+'''
+#708 - incomplete
+'''
 # sqrt(10**14)
 
-from operator import add, mul
-mx = 250
-pt = get_primes_below(math.ceil(math.sqrt(mx)))
-primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
-primes.add(2)
-# print(primes)
-mxpowers = dict()
-avail = []
-pre = time.time()
-for p in primes:
-    k = math.floor(math.log(mx, p))
-    mxpowers[p] = k
-    arr = list(zip(itertools.accumulate([p]*k, mul), range(1,k+1)))
-    avail.extend(arr)
-print(mxpowers, avail)
-# print(2**46, 2**44*5)
+# from operator import add, mul
+# mx = 95
+# pt = get_primes_below(math.ceil(math.sqrt(mx)))
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# # print(primes)
+# mxpowers = dict()
+# avail = []
+# pre = time.time()
+# for p in primes:
+#     k = math.floor(math.log(mx, p))
+#     mxpowers[p] = k
+#     arr = list(zip(itertools.accumulate([p]*k, mul), range(1,k+1)))
+#     avail.extend(arr)
+# print(mxpowers, avail)
+# # print(2**46, 2**44*5)
 
-# combos of any length
-a = time.time()
-print(a-pre)
-all_combinations = (
-    lambda ls: 
-        functools.reduce(lambda a,v: a+(2<<(v-1)),
-            map(
-                lambda combo: functools.reduce(add, map(lambda c: c[1], combo)),
-                itertools.chain.from_iterable(
-                        itertools.filterfalse(
-                            lambda combo: functools.reduce(mul, map(lambda c: c[0], combo)) > mx, 
-                            itertools.combinations(ls, size)
-                        )
-                        for size in range(1, len(ls)+1)
-                    )
-            )
-        )
-)
+# # combos of any length
+# a = time.time()
+# print(a-pre)
+# all_combinations = (
+#     lambda ls: 
+#         # reduce(lambda a,v: a+(2<<(v-1)),
+#         #     map(
+#         #         lambda combo: reduce(add, map(lambda c: c[1], combo)),
+#                 itertools.chain.from_iterable(
+#                         itertools.filterfalse(
+#                             lambda combo: reduce(mul, map(lambda c: c[0], combo)) > mx, 
+#                             itertools.combinations(ls, size)
+#                         )
+#                         for size in range(1, len(ls)+1)
+#                     )
+#         #     )
+#         # )
+# )
+
+# '''
+# ((2, 1),)
+# ((4, 2),)
+# ((8, 3),)
+# ((3, 1),)
+# ((9, 2),)
+# ((2, 1), (4, 2))
+# ((2, 1), (3, 1))
+# '''
+
+
+# combs = []
+# # combs = all_combinations(avail)
+# print(combs)
+# # for q in list(combs):
+# #     print(q)
+# twopow = [2<<i for i in range(mxpowers[2]+1)]
+# print(twopow)
+# sm = 1
+# for combo in combs:
+#     k =0
+#     for c in combo:
+#         k += c[1]
+#     sm += twopow[k-1]
+# print('final ', sm)
+# b = time.time()
+# print(b-a)
+
+# sm = 1
+# cache = dict() # num: num_prime_factors
+# for t in range(3, mx,2):
+
+#     if t in primes:
+#         sm += 2
+#         continue
+#     q = 0
+#     for p in primes:
+#         while t%p == 0:
+#             t//=p
+#             q += 1
+#         if t == 1:
+#             break
+
+#         if t in cache:
+#             q += cache[t]
+#             break
+#     cache[t] = q
+#     if q > mxpowers[2]:
+#         print(cache)
+#         print(q)
+#     sm += twopow[q-1]
+# print('final_ ', sm)
+# c = time.time()
+# print(c-b)
+
+# k = reduce(lambda a,v: a*v, range(1,101))
+# print(sum(int(i) for i in str(k)))
 
 '''
-((2, 1),)
-((4, 2),)
-((8, 3),)
-((3, 1),)
-((9, 2),)
-((2, 1), (4, 2))
-((2, 1), (3, 1))
+#21
 '''
 
+# def phi(n): 
+#     result = 1
+#     for i in range(2, n):
+#         if (math.gcd(i, n) == 1): 
+#             result+=1
+#     return result
+
+# mx = 10000
+# pt = get_primes_below(mx)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# primes = sorted(primes)
+# # print(sum_divisors(284))
+# arr =set()
+# for i in range(1, mx):
+#     for j in range(i+1, mx):
+#         if sum_divisors(i) == j and sum_divisors(j) ==i: # using lru_cache :)
+#             arr.add(i)
+#             arr.add(j)
+#             print(i,j)
+# print(sum(arr))            
+
+'''
+#22
+'''
+
+# a = open('names.txt').readlines()
+# names = [w[1:-1] for w in a[0].split(',')]
+# import string
+# s = '0' + string.ascii_uppercase
+# sm = 0
+# for ind, name in enumerate(sorted(names)):
+#     if name == 'COLIN':
+#         print(sum(s.index(i) for i in name), (ind+1))
+#     sm += sum(s.index(i) for i in name)*(ind+1)
+# print(sm)
+
+'''
+#23
+'''
+# mx = 28123
+# pt = get_primes_below(mx)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# primes = sorted(primes)
+
+# abundant = []
+# for i in range(3, mx):
+#     if sum_divisors(i) > i:
+#         abundant.append(i)
+# print(len(abundant), abundant[:10])
+
+# possible = set()
+# for a in abundant:
+#     for b in abundant:
+#         if a+b > mx:
+#             break
+#         possible.add(a+b)
+# sm = 0
+# for i in range(mx):
+#     if i not in possible:
+#         # print(i)
+#         sm += i
+# print(sm)
+    
+'''
+#35
+'''
+# mx = 10**6
+# print(mx)
+# pt = get_primes_below(mx)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# print(len(primes))
+
+# bad = [0,2,4,5,6,8]
+
+# cnt = 2 # for 2, 5
+# for p in primes:
+#     # if any even digits, skip
+#     # if contains 0 or 5, skip
+#     s = str(p)
+#     if any(int(i) in bad for i in s):
+#         continue
+#     if any(int(s[i:] + s[:i]) not in primes for i in range(len(s))):
+#         continue
+#     cnt += 1
+# print(cnt)
 
 
-combs = all_combinations(avail)
-print(combs)
-# for q in list(combs):
-#     print(q)
-sm = 1
-# for c in combs:
-#     sm += 2<<(functools.reduce(-1)
-print('final ', sm)
-b = time.time()
-print(b-a)
+
+for i in range(1,9)
