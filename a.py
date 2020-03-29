@@ -399,7 +399,7 @@ bigprimes = set((i<<1) +1 for (i,e) in enumerate(bigpt) if e == '1')
 c = time.time()
 print(b-a, c-b)
 pt = get_primes_below(k)
-primes = list((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
 print(len(bigprimes))
 print(len(primes))
 def isprime(n):
@@ -413,37 +413,56 @@ def isprime(n):
 from itertools import permutations, combinations
 
 combs = combinations(primes,2)
-pairs = set()
-for comb in combs:
-    arr = comb
-    if len(set(arr)) != len(arr):
+pairs = set() # Invariant: (a,b) where b > a
+for arr in combs:
+    if arr[0] == arr[1]:
         continue
-    # for m in primes:
     a = permutations(arr, 2)
+    # TODO: use "ANY"
     good = all(isprime(int(''.join([str(c) for c in perm]))) for perm in a)
-    # print(list(a),good)
-    # break
     if good:
         pairs.add(arr)
-        # print(arr)
-print(len(pairs), ' pairs')
-# print(pairs)
-quads = set()
-for quad in combinations(pairs,2):
-    quad = quad[0] + quad[1]
-    arr = quad
-    a = permutations(arr, 2)
-    good = all((q in pairs or q[::-1] in pairs) for q in a)
 
-    if good:
-        quads.add(arr)
+print(len(pairs), ' pairs')
+a = time.time()
+triples = set()
+for pair in pairs:
+    for p in primes:
+        if p in pair:
+            continue
+        candidates = [(q, p) for q in pair]
+        # TODO: use "ANY"
+        good = all((c in pairs or c[::-1] in pairs) for c in candidates)
+        if good:
+            triples.add((pair[0], pair[1], p))
+    # print((pair[0], pair[1], p))
+
+print(len(triples), ' triples')
+b = time.time()
+print(b-a)
+c = time.time()
+quads = set()
+for trip in triples:
+    for p in primes:
+        if p in trip:
+            continue
+        # TODO: instead of check in pairs, check in triples?
+        candidates = [(q, p) for q in trip]
+        # TODO: use "ANY"   
+        good = all((c in pairs or c[::-1] in pairs) for c in candidates)
+        if good:
+            quads.add((trip[0], trip[1], trip[2], p))
+d = time.time()
+print(d-c)
 print(len(quads), ' quads')
 
+# not worth optimizing, instantaneous
 for quad in quads:
     for p in primes:
         if p in quad:
             continue
         candidates = [(q, p) for q in quad]
+        # TODO: use "ANY"
         good = all((c in pairs or c[::-1] in pairs) for c in candidates)
         if good:
             print(p, quad, sum(quad)+p)
