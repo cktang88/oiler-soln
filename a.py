@@ -395,19 +395,18 @@ k =10000
 a = time.time()
 bigpt = get_primes_below(k*k)
 b = time.time()
-bigprimes = set((i<<1) +1 for (i,e) in enumerate(bigpt) if e == '1')
-c = time.time()
-print(b-a, c-b)
 pt = get_primes_below(k)
 primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
-print(len(bigprimes))
+# print(len(bigpt))
 print(len(primes))
+c = time.time()
+print(b-a, c-b)
 def isprime(n):
     if n%2==0:
         return False
     if n < k:
         return n in primes
-    return n in bigprimes
+    return bigpt[(n-1)>>1] == '1'
 # print(isprime(201), isprime(15), isprime(211))
 
 from itertools import permutations, combinations
