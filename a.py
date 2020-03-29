@@ -424,48 +424,34 @@ for arr in combs:
     if not bad:
         pairs.add(arr)
 
+def append_group(groups):
+    result = set()
+    for group in groups:
+        mx = group[-1]
+        for p in rev_sorted_primes:
+            if p <= mx:
+                break
+            candidates = [(q, p) for q in group]
+            bad = any((c not in pairs) for c in candidates)
+            if not bad:
+                result.add((*group, p))
+    return result
 
 print(len(pairs), ' pairs')
 a = time.time()
 triples = set() # Invariant: (a,b,c) where c > b > a
-for pair in pairs:
-    mx = pair[1]
-    for p in rev_sorted_primes:
-        if p <= mx:
-            break
-        candidates = [(q, p) for q in pair]
-        bad = any((c not in pairs) for c in candidates)
-        if not bad:
-            triples.add((*pair, p))
-            # print((pair[0], pair[1], p))
+triples = append_group(pairs)
 
 print(len(triples), ' triples')
 b = time.time()
 print(b-a)
 c = time.time()
-quads = set()
-for trip in triples:
-    mx = trip[2]
-    for p in rev_sorted_primes:
-        if p <= mx:
-            break
-        # TODO: instead of check in pairs, check in triples?
-        candidates = [(q, p) for q in trip]
-        bad = any((c not in pairs) for c in candidates)
-        if not bad:
-            quads.add((*trip, p))
+quads = append_group(triples)
             # print((trip[0], trip[1], trip[2], p))
 d = time.time()
 print(d-c)
 print(len(quads), ' quads')
 
 # not worth optimizing, instantaneous
-for quad in quads:
-    mx = quad[3]
-    for p in rev_sorted_primes:
-        if p <= mx:
-            break
-        candidates = [(q, p) for q in quad]
-        bad = any((c not in pairs) for c in candidates)
-        if not bad:
-            print((*quad, p), sum(quad)+p)
+quints = append_group(quads)
+print(quints)
