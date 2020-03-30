@@ -3,6 +3,7 @@ import itertools, math
 from functools import lru_cache, reduce
 from operator import add, mul
 from itertools import permutations, combinations
+from collections import Counter
 import time
 
 from bitarray import bitarray
@@ -405,17 +406,24 @@ def sum_divisors(t):
 '''
 #65
 '''
-# mx = 4
-# dig = [2*(i+2)//3 if (i-1)%3==0 else 1 for i in range(mx)]
+# mx = 98
+# dig = [2*(i+2)//3 if (i-1)%3==0 else 1 for i in range(mx+1)]
+# # dig = [2 for i in range(mx+1)]
 # print(dig)
+# curbot = dig.pop()
 # curtop = 1
-# curbot = dig[:-1]
+# front = 2
 # for i in range(mx):
-#     ind = mx - i+1
+
+#     ind = mx - i-1
+    
+#     # print(ind, curtop, curbot)
+#     # print(ind)
 #     curtop = curbot*dig[ind] + curtop
 #     curtop, curbot = curbot, curtop
-#     print(curtop, curbot)
 
+# print(curtop+front*curbot, curbot)
+# print(sum(int(i) for i in str(curtop+front*curbot)))
 
 '''
 #92
@@ -439,3 +447,56 @@ def sum_divisors(t):
 '''
 #89
 '''
+# d = {
+#     'I': 1,
+#     'V': 5,
+#     'X': 10,
+#     'L': 50,
+#     'C': 100,
+#     'D': 500,
+#     'M': 1000,
+# }
+# inp = [l.strip() for l in open('./p089_roman.txt').readlines()]
+# # inp = inp[:5]
+# print(inp)
+# cnt = 0
+# for num in inp:
+#     c = Counter(num)
+#     print(num)
+#     if c['D'] > 1 or c['L'] > 1 or c['V'] > 1:
+#         print('bro')
+#         break
+#     newnum = num
+#     newnum = newnum.replace('DCCCC', 'CM')
+#     newnum = newnum.replace('CCCC', 'CD')
+    
+#     newnum = newnum.replace('LXXXX', 'XC')
+#     newnum = newnum.replace('XXXX', 'XL')
+
+#     newnum = newnum.replace('VIIII', 'IX')
+#     newnum = newnum.replace('IIII', 'IV')
+#     diff = len(num) - len(newnum)
+#     cnt += diff
+#     print(newnum if diff else '')
+# print(cnt)
+
+'''
+#79
+'''
+# inp = [l.strip() for l in open('./p079_keylog.txt').readlines()]
+# # inp = inp[:4]
+# print(inp)
+# sums = [0]*10
+# times = [0]*10
+# for i in inp:
+#     for j in range(len(i)):
+#         n = int(i[j])
+#         sums[n] += j+1
+#         times[n] += 1
+# arr = [sums[i]/ times[i] if times[i] > 0 else 0 for i in range(10)]
+# # print(sums, times)
+
+# ns = sorted(range(10), key=lambda x:arr[x])
+# for i in ns:
+#     print(i, arr[i])
+
