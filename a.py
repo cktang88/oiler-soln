@@ -25,6 +25,8 @@ def num_factors(t):
     orig = t
     numfactors = 1
     for p in primes:
+        if p>t:
+            break
         q = 0
         while t%p == 0:
             t//=p
@@ -35,6 +37,26 @@ def num_factors(t):
     if t > 1:
         print(orig, 'bro')
     return numfactors
+
+def phi(t):
+    if t in primes:
+        return t-1
+    res = t
+    for p in primes:
+        if p > t:
+            break
+        q = 0
+        if t%p == 0:
+            res /= p
+            res *= (p-1)
+        while t%p == 0:
+            t//=p
+        
+        if t == 1:
+            break
+    if t > 1:
+        print(res, t, 'bro')
+    return int(res) 
 
 @lru_cache(maxsize=10000)
 def sum_divisors(t):
@@ -551,3 +573,34 @@ def sum_divisors(t):
 '''
 #243
 '''
+mx = 10**6
+pt = get_primes_below(mx)
+primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+primes.add(2)
+primes = list(sorted(primes))
+ps = set(primes)
+# print(primes)
+
+bar = 15499/94744
+print(bar)
+bar = .19
+
+hi = lambda x: phi(x)/(x-1)
+n = 2**3 * 3 * 5 * 7*11*13*17*19*23
+# n=892371480, basically guess and check different prime factorizations above lol
+# intuition says as # primes increase, phi(x)/x goes down faster than increasing exponent of primes...
+print(n)
+print(hi(n))
+
+# for i in range(100):
+    
+
+# for i in range(1, 10000):
+#     if phi(i) < .22*(i-1):
+#         print(i, phi(i)/(i-1))
+# for i in range(2310, mx, 2310):
+#     if phi(i) < bar * (i-1):
+#         print(i, phi(i)/(i-1))
+        # break
+    # print(i)
+
