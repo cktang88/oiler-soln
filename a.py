@@ -78,6 +78,30 @@ def sum_divisors(t):
         print(orig, 'bro')
     return int(sm - orig)
 
+def generatePalindromes(n, base=10): 
+    # NOTE: may create '1' and '11' twice...
+    def createPalindrome(inp, isOdd): 
+        n = inp
+        palin = inp
+        if (isOdd): 
+            n //= base
+        # Creates palindrome by just appending reverse 
+        # of number to itself 
+        while (n > 0):
+            palin = palin * base + (n % base) 
+            n //= base
+        return palin 
+    ls = []
+    # Run two times for odd and even length palindromes 
+    for j in range(2):
+        i = 1
+        pal = createPalindrome(i, j % 2)
+        while (pal < n):
+            ls.append(pal)
+            pal = createPalindrome(i, j % 2)
+            i = i + 1
+    return ls
+
 '''
 #60
 '''
@@ -654,3 +678,16 @@ def sum_divisors(t):
 '''
 #36
 '''
+# only odds b/c binary starts w/ 1, ends w/ 1
+   
+# Function to print decimal palindromic number 
+
+mx = 10**6
+pal = set(generatePalindromes(mx, 2))
+p2 = set(generatePalindromes(mx))
+q = pal.intersection(p2)
+print(sum(q))
+# for i in pal:
+    
+# p = createPalindrome(58, 10, 1)
+# print(p)
