@@ -500,3 +500,38 @@ def sum_divisors(t):
 # for i in ns:
 #     print(i, arr[i])
 
+'''
+#27
+'''
+# mx = 1000
+# pt = get_primes_below(mx*100)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# primes = list(sorted(primes))
+# ps = set(primes)
+# # b must be positive prime, b+a+1 must be prime
+# # print(primes)
+# for a in range(-1*mx, mx):
+#     for b in primes:
+#         if b > mx:
+#             break
+#         # if a == 1 and b== 41:
+#         #     print(b, (b+a) in ps)
+#         if b+a+1 not in ps:
+#             continue
+#         for n in range(9999):
+
+#             if n*(n+a) + b not in primes:
+#                 break
+#         if n>40:
+#             print(a,b,n)
+
+
+'''
+#81
+'''
+
+
+'''
+#243
+'''
