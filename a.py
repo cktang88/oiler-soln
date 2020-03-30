@@ -604,3 +604,19 @@ print(hi(n))
         # break
     # print(i)
 
+'''
+#34
+'''
+# no 1 digit b/c not sums
+# 2 digit can only use 1,2,3,4
+# 3 digit can use 1..6
+facs = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880]
+print(facs)
+res = []
+for i in range(10**7):
+    if sum(facs[int(c)] for c in str(i)) == i:
+        res.append(i)
+        print(i)
+print(sum(res))
+
+
