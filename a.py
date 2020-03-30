@@ -644,10 +644,13 @@ def sum_divisors(t):
 # print(ans)
 
 '''
-#144
+#28
 '''
-
+# sm = 1
+# for i in range(2,1001,2):
+#     sm += 4*(i+1)**2 - 6*i
+# print(sm)\
 
 '''
-#233
+#36
 '''
