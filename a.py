@@ -402,3 +402,40 @@ def sum_divisors(t):
 #         break
 
 
+'''
+#65
+'''
+# mx = 4
+# dig = [2*(i+2)//3 if (i-1)%3==0 else 1 for i in range(mx)]
+# print(dig)
+# curtop = 1
+# curbot = dig[:-1]
+# for i in range(mx):
+#     ind = mx - i+1
+#     curtop = curbot*dig[ind] + curtop
+#     curtop, curbot = curbot, curtop
+#     print(curtop, curbot)
+
+
+'''
+#92
+'''
+# a = set([1]) # 1
+# b = set([89]) #89
+# for i in range(1, 10**7):
+#     tmp = i
+#     buff = [i]
+#     while True:
+#         if tmp in a:
+#             a.update(buff)
+#             break
+#         if tmp in b:
+#             b.update(buff)
+#             break
+#         tmp = sum(int(i)**2 for i in str(tmp))
+#         buff.append(tmp)
+#         # print(tmp)
+# print(len(a), len(b))
+'''
+#89
+'''
