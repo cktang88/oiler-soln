@@ -366,3 +366,39 @@ def sum_divisors(t):
 #     b = 18000 + int(''.join(d[3:]))
 #     if b == 2*a:
 #         print(a,b)
+
+'''
+#46
+'''
+# mx = 10**6
+# print(mx)
+# pt = get_primes_below(mx)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# primes = list(sorted(primes))
+# print(len(primes), primes[:10])
+
+# twosq = [2*i*i for i in range(1, math.floor(math.sqrt(mx)/1.4))]
+# # print(twosq)
+
+# for i in range(3,mx,2):
+#     if i in primes:
+#         continue
+#     found = False
+#     for p in primes:
+#         if p > i:
+#             found = False
+#             break
+#         for ts in twosq:
+#             if p + ts > i:
+#                 break
+#             if p + ts == i:
+#                 found = True
+#                 break
+#         if found:
+#             break
+#     if not found:
+#         print(i)
+#         break
+
+
