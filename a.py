@@ -530,7 +530,23 @@ def sum_divisors(t):
 '''
 #81
 '''
+# arr = [[int(k) for k in row.split(',')] for row in open('./p081_matrix.txt').readlines()]
+# # print(arr)
+# # arr = [[1,1,1], [1,1,1], [1,1,1]]
+# mx = len(arr)
+# print(arr[0])
+# for i in range(1, mx):
+#     arr[i][0] += arr[i-1][0]
+#     arr[0][i] += arr[0][i-1]
 
+# for q in range(1, mx):
+#     arr[q][q] += min(arr[q-1][q], arr[q][q-1])
+#     for i in range(q+1, mx):
+#         arr[i][q] += min(arr[i-1][q], arr[i][q-1])
+#         arr[q][i] += min(arr[q][i-1], arr[q-1][i])
+# # print(arr[0])
+# print(arr[-1][-1])
+# # print(arr)
 
 '''
 #243
