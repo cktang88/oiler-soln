@@ -573,24 +573,24 @@ def sum_divisors(t):
 '''
 #243
 '''
-mx = 10**6
-pt = get_primes_below(mx)
-primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
-primes.add(2)
-primes = list(sorted(primes))
-ps = set(primes)
-# print(primes)
+# mx = 10**6
+# pt = get_primes_below(mx)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# primes = list(sorted(primes))
+# ps = set(primes)
+# # print(primes)
 
-bar = 15499/94744
-print(bar)
-bar = .19
+# bar = 15499/94744
+# print(bar)
+# bar = .19
 
-hi = lambda x: phi(x)/(x-1)
-n = 2**3 * 3 * 5 * 7*11*13*17*19*23
-# n=892371480, basically guess and check different prime factorizations above lol
-# intuition says as # primes increase, phi(x)/x goes down faster than increasing exponent of primes...
-print(n)
-print(hi(n))
+# hi = lambda x: phi(x)/(x-1)
+# n = 2**3 * 3 * 5 * 7*11*13*17*19*23
+# # n=892371480, basically guess and check different prime factorizations above lol
+# # intuition says as # primes increase, phi(x)/x goes down faster than increasing exponent of primes...
+# print(n)
+# print(hi(n))
 
 # for i in range(100):
     
@@ -610,13 +610,44 @@ print(hi(n))
 # no 1 digit b/c not sums
 # 2 digit can only use 1,2,3,4
 # 3 digit can use 1..6
-facs = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880]
-print(facs)
-res = []
-for i in range(10**7):
-    if sum(facs[int(c)] for c in str(i)) == i:
-        res.append(i)
-        print(i)
-print(sum(res))
+# facs = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880]
+# print(facs)
+# res = []
+# for i in range(10**7):
+#     if sum(facs[int(c)] for c in str(i)) == i:
+#         res.append(i)
+#         print(i)
+# print(sum(res))
 
 
+'''
+#55
+'''
+
+# ans = 0
+# for i in range(1, 10000):
+#     # i = 10677
+#     tmp = str(i)
+#     rev = tmp[::-1]
+#     tmp = str(int(tmp) + int(rev))
+#     rev = tmp[::-1]
+#     cnt = 0
+
+#     while tmp != rev and cnt < 50:
+#         tmp = str(int(tmp) + int(rev))
+#         rev = tmp[::-1]
+#         cnt += 1
+#         # print(tmp, rev)
+#     if tmp != rev:
+#         ans += 1
+#         print(i)
+# print(ans)
+
+'''
+#144
+'''
+
+
+'''
+#233
+'''
