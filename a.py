@@ -680,14 +680,19 @@ def generatePalindromes(n, base=10):
 '''
 # only odds b/c binary starts w/ 1, ends w/ 1
    
-# Function to print decimal palindromic number 
-
-mx = 10**6
-pal = set(generatePalindromes(mx, 2))
-p2 = set(generatePalindromes(mx))
-q = pal.intersection(p2)
-print(sum(q))
+# mx = 10**6
+# pal = set(generatePalindromes(mx, 2))
+# p2 = set(generatePalindromes(mx))
+# q = pal.intersection(p2)
+# print(sum(q))
 # for i in pal:
-    
-# p = createPalindrome(58, 10, 1)
-# print(p)
+
+'''
+#45
+'''
+# hex nums = every other triangular num
+# mx = 10**6
+# pent = set(3*n**2-n for n in range(mx))
+# hx = set(4*n**2 - 2*n for n in range(mx))
+# i = hx.intersection(pent)
+# print([k/2 for k in i])
