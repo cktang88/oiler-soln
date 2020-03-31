@@ -1,10 +1,11 @@
 from typing import List
-import itertools, math
+import itertools
 from functools import lru_cache, reduce
 from operator import add, mul
 from itertools import permutations, combinations
 from collections import Counter
 import time
+from math import sqrt, pow, ceil, floor, sqrt, log, sin, cos, pi
 
 from bitarray import bitarray
 
@@ -616,7 +617,7 @@ def generatePalindromes(n, base=10):
 # print(n)
 # print(hi(n))
 
-# for i in range(100):
+# # for i in range(100):
     
 
 # for i in range(1, 10000):
@@ -625,8 +626,8 @@ def generatePalindromes(n, base=10):
 # for i in range(2310, mx, 2310):
 #     if phi(i) < bar * (i-1):
 #         print(i, phi(i)/(i-1))
-        # break
-    # print(i)
+#         break
+#     print(i)
 
 '''
 #34
@@ -696,3 +697,103 @@ def generatePalindromes(n, base=10):
 # hx = set(4*n**2 - 2*n for n in range(mx))
 # i = hx.intersection(pent)
 # print([k/2 for k in i])
+'''
+#77 - incomplete
+'''
+# mx = 10**2
+# pt = get_primes_below(mx)
+# primes = set((i<<1) +1 for (i,e) in enumerate(pt) if e == '1')
+# primes.add(2)
+# primes = list(sorted(primes))
+# ps = set(primes)
+# print(primes)
+
+# cache = [0]*mx
+# cache[2] = 1
+# cache[3] = 1
+# cache[4] = 1 #2,2
+# cache[5] = 1 #2,3
+# cache[6] = 2 #3,3 + 2,2,2
+# cache[7] = 2 #2,5 + 2,2,3
+# for i in range(8, mx):
+#     cur = 0
+#     for p in primes:
+        
+#         if p >i:
+#             break
+#         if i-p in primes:
+#             cur += 1
+#         cur += cache[i-p]
+#     cache[i] = cur
+#     # if cur > 5000:
+#     #     print(i)
+#     #     break
+# print(cache)
+        
+'''
+#94 - incomplete
+'''
+# mx = 10**3
+# mx //=6
+# print(mx)
+# # print(mx//3)
+# # print(s*s*sqrt(3)/4)
+
+# a = time.time()
+# # sq = set(i**2 for i in range(mx))
+# sq = bitarray(mx*mx+1)  # only store odds, prime[i] = 2*i+1
+# sq[:] = False
+# i=0
+# while i <mx:
+#     sq[i**2] = True
+#     i+=1
+
+# a2 = time.time()
+# print(a2-a)
+# i = 2
+# sm = 0
+# while i<mx:
+#     for j in [2*i-1, 2*i+1]:
+#         if sq[j**2 - i**2]:
+#             h = int(sqrt(j**2 - i**2))
+#             print(h,i,j)
+#             sm += i*2+j*2
+#             print('sum ', sm)
+#             i *= 3 # h9ck3r
+#     i+=1
+# b = time.time()
+# print(b-a2)
+# basically... find pythag triples...
+'''
+#63
+'''
+# c=1
+# for k in range(2, 10):
+#     for i in range(1, 100):
+#         # print(log(20**i, 10))
+#         m = k**i
+#         # print(m)
+#         p = int(ceil(log(m, 10)))
+#         if p == i:
+#             print(m)
+#             c += 1
+#         if p>i:
+#             break
+# print(c)
+'''
+#85
+'''
+# choose 2 verticals, 2 horizontals
+# mx = 2*10**6
+# sq = int(ceil(sqrt(mx)))
+# print(mx)
+# best = mx
+# for i in range(1,sq*2):
+#     mn = max(mx//i**2 - 500, 0)
+#     for j in range(mn, mx//i**2+500):
+#         # print(i,j)
+#         cand = abs((i**2-i)*(j**2-j)/4 - mx)
+#         # print(cand)
+#         if best>cand:
+#             print(cand, i, j, (i-1)*(j-1), i*(i-1)/2*j*(j-1)/2)
+#             best = cand
