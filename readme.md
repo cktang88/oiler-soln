@@ -1,4 +1,4 @@
-## project euler solutions
+## oiler-soln
 
 - No attempt was made at documenting approaches or good code style, may change in the future :)
 - uses [ilanschnell/bitarray](https://github.com/ilanschnell/bitarray) for extremely fast bitmaps for storing many primes
