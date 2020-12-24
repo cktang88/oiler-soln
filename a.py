@@ -797,3 +797,17 @@ def generatePalindromes(n, base=10):
 #         if best>cand:
 #             print(cand, i, j, (i-1)*(j-1), i*(i-1)/2*j*(j-1)/2)
 #             best = cand
+'''
+#71
+'''
+# import math
+# best = (1,0,0)
+# tmp=0
+# for j in range(1, 1_000_000):
+#   for i in range(math.floor(.42857*j), 3*j//7):
+#     tmp = i/j
+#     if 3/7 - tmp < best[0]:
+#       best = (3/7 - tmp, i,j)
+#   if j%10000 == 0:
+#     print(j, best)
+# print(j,best)
