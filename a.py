@@ -824,3 +824,13 @@ def generatePalindromes(n, base=10):
 #     fracs.add(i/j)
 #     tmp += 1
 # print(tmp, len(fracs))
+'''
+#53
+'''
+# from math import comb
+# res=0
+# for i in range(101):
+#   for j in range(i):
+#     if comb(i,j) > 1_000_000:
+#       res +=1
+# print(res)
