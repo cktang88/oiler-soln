@@ -811,3 +811,16 @@ def generatePalindromes(n, base=10):
 #   if j%10000 == 0:
 #     print(j, best)
 # print(j,best)
+'''
+#73
+'''
+# tmp=0
+# fracs = set()
+# for j in range(2, 12_001):
+#   start = math.ceil(j/3)
+#   if j%3==0:
+#     start += 1
+#   for i in range(start, math.ceil(j/2)):
+#     fracs.add(i/j)
+#     tmp += 1
+# print(tmp, len(fracs))
