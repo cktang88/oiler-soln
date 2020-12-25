@@ -834,3 +834,28 @@ def generatePalindromes(n, base=10):
 #     if comb(i,j) > 1_000_000:
 #       res +=1
 # print(res)
+'''
+#52
+'''
+# from math import comb, floor, log10
+# res=0
+# # math.log way faster than len(str()): https://stackoverflow.com/questions/2189800/how-to-find-length-of-digits-in-an-integer/2189834#2189834
+# i=1
+# while i < 10000001:
+#   nd = floor(log10(i))+1
+
+#   # 6*i needs to have same # digits as i
+#   if i>10**nd//6:
+#     i=10**nd
+#     continue
+#   if i%2==0:
+#     s = str(i)
+#     # even numbers need to have '0' b/c 5*i ends in 0
+#     if '0' not in s:
+#       i=(i//10+1)*10
+#       continue
+#   # print(i)
+#   s = str(i)
+#   if set(s) == set(str(i*2)) == set(str(i*3)) == set(str(i*4)) == set(str(i*5)) == set(str(i*6)):
+#     print(i)
+#   i+=1
