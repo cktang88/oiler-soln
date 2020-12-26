@@ -859,3 +859,16 @@ def generatePalindromes(n, base=10):
 #   if set(s) == set(str(i*2)) == set(str(i*3)) == set(str(i*4)) == set(str(i*5)) == set(str(i*6)):
 #     print(i)
 #   i+=1
+'''
+#30
+'''
+powers = [i**5 for i in range(10)]
+print(powers)
+
+sm = 0
+mx = 59000*6 # after this, num always larger than digit**5 sum
+for i in range(2,mx):
+  if sum(powers[int(c)] for c in str(i)) == i:
+    sm += i
+    print(i)
+print('tot ', sm)
